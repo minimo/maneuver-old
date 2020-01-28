@@ -1,0 +1,17 @@
+{
+  "name": "maneuver",
+  "version": "1.0.0",
+  "description": "ActionGame",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "filecopy": "^4.0.2",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "minimist": "^1.2.0"
+  }
+}
