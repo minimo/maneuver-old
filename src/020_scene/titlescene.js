@@ -42,11 +42,14 @@ phina.namespace(function() {
         .addChildTo(this);
       this.registDispose(label);
 
-      back.setInteractive(true);
-      back.on('pointend', () => this.exit("main"));
+      this.one('nextscene', () => this.exit("main"));
     },
 
     update: function() {
+      var ct = phina_app.controller;
+      if (ct.a) {
+        this.flare('nextscene');
+      }
     },
 
   });

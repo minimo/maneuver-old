@@ -22,12 +22,12 @@ phina.namespace(function() {
 
       this.player = Player()
         .setPosition(SCREEN_WIDTH_HALF, SCREEN_HEIGHT_HALF)
-        .addChildTo(this.mapLayer[LAYER_ACTOR]);
+        .addChildTo(this.mapLayer[LAYER_PLAYER]);
     },
-
     update: function() {
     },
-
+    setupMap: function() {
+    },
   });
 
 });

@@ -4,6 +4,7 @@ phina.namespace(function() {
     superClass: 'DisplayElement',
 
     state: null,
+    angle: 0,
     direction: 0,
     vx: 0,
     vy: 0,
