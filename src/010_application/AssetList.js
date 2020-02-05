@@ -16,13 +16,11 @@ phina.namespace(function() {
           case "preload":
             return {
               image: {
-                "actor4": "assets/textures/actor4.png",
-                "shadow": "assets/textures/shadow.png",
-                "weapons": "assets/textures/weapons.png",
+                "fighter": "assets/textures/fighter.png",
               },
-              tmx: {
-                "map1": "assets/map/map2.tmx",
-              },
+              // tmx: {
+              //   "map1": "assets/map/map2.tmx",
+              // },
               // tsx: {
               //   "tile_a": "assets/map/tile_a.tsx",
               // }

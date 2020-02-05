@@ -1,7 +1,7 @@
 phina.namespace(function() {
 
   phina.define('Player', {
-    superClass: 'Actor',
+    superClass: 'BaseUnit',
 
     mapData: null,
     collisionData: null,
@@ -10,39 +10,29 @@ phina.namespace(function() {
     coverData: null,
 
     init: function() {
-      this.superInit({ width: 32, height: 32 });
+      this.superInit({ width: 64, height: 64 });
 
-      this.setShadow();
-
-      this.sprite = Sprite("actor4", 32, 32)
+      this.sprite = Sprite("fighter", 64, 64)
         .setFrameIndex(0)
         .addChildTo(this.base);
     },
 
     update: function() {
-      this.vx = 0;
-      this.vy = 0;
-      this.isAnimation = false;
+      var ct = phina_app.controller;
+      if (ct.left) {
+        this.direction++;
+        if (this.direction > 15) this.direction = 0;
+      } else if (ct.right) {
+        this.direction--;
+        if (this.direction < 0) this.direction = 15;
+      }
+      this.sprite.setFrameIndex(this.direction);
 
-      const app = phina_app;
-      const ctrl = app.controller;
-      let animationName = "";
-      if (ctrl.up) {
-        this.vy = -2;
-      } else if (ctrl.down) {
-        this.vy = 2;
-      }
-      if (ctrl.left) {
-        this.vx = -2;
-      } else if (ctrl.right) {
-        this.vx = 2;
-      }
-
-      if (ctrl.attack) {
-        if (!this.isAttack) {
-          this.isAttack = true;
-        }
-      }
+      const rad = (this.direction * 22.5).toRadian();
+      const vx = -Math.sin(rad) * 2;
+      const vy = -Math.cos(rad) * 2;
+      this.x += vx;
+      this.y += vy;
     },
   });
 
