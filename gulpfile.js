@@ -29,7 +29,7 @@ gulp.task('watch', function(done) {
 gulp.task('concat', function(done) {
   return gulp.src(['./src/**/*.js'], { sourcemaps: true })
     .pipe(concat(BUILD_FILENAME))
-    .pipe(gulp.dest('./_bundle', { sourcemaps: true }));
+    .pipe(gulp.dest('./', { sourcemaps: true }));
 });
 
 gulp.task('build', gulp.series('concat'));
