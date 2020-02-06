@@ -33,19 +33,26 @@ phina.namespace(function() {
         this.sprite.setFrameIndex(this.direction);
         if (ct.up) {
           this.speed += 0.1;
-          if (this.speed > 3) this.speed = 3;
+          if (this.speed > 1) this.speed = 1;
+          const rad = (this.direction * 22.5).toRadian();
+          this.vx += -Math.sin(rad) * this.speed;
+          this.vy += -Math.cos(rad) * this.speed;
+          const vec = Vector2(this.vx, this.vy);
+          if (vec.length > 2) {
+            vec.normalize();
+            this.vx = vec.x * 2;
+            this.vy = vec.y * 2;
+          }
         } else {
           this.speed *= 0.98;
         }
       }
 
-      const rad = (this.direction * 22.5).toRadian();
-      this.vx = -Math.sin(rad) * this.speed;
-      this.vy = -Math.cos(rad) * this.speed;
       this.x += this.vx;
       this.y += this.vy;
 
-      this.y += 0.98;
+      this.vx *= 0.999;
+      this.vy *= 0.999;
 
       this.time++;
     },

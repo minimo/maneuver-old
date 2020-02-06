@@ -25,6 +25,9 @@ phina.namespace(function() {
         .addChildTo(this.mapLayer[LAYER_PLAYER]);
     },
     update: function() {
+      this.mapBase.x = -this.player.x + SCREEN_WIDTH_HALF;
+      this.mapBase.y = -this.player.y + SCREEN_HEIGHT_HALF;
+      console.log(this.mapBase.x, this.mapBase.y)
     },
     setupMap: function() {
     },
