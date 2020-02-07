@@ -31,8 +31,8 @@ phina.namespace(function() {
     update: function() {
       this.controlPlayer();
 
-      this.mapBase.x = -this.player.x + SCREEN_WIDTH_HALF;
-      this.mapBase.y = -this.player.y + SCREEN_HEIGHT_HALF;
+      this.mapBase.x = -this.player.x + SCREEN_WIDTH_HALF - this.player.vx * 2;
+      this.mapBase.y = -this.player.y + SCREEN_HEIGHT_HALF - this.player.vy * 2;
 
       this.time++;
     },
@@ -45,8 +45,8 @@ phina.namespace(function() {
           stroke: '#aaa',
           strokeWidth: 4,
           cornerRadius: 0,
-          x: Math.randint(-3000, 3000),
-          y: Math.randint(-3000, 3000),
+          x: Math.randint(-10000, 10000),
+          y: Math.randint(-5000, 5000),
         }).addChildTo(this.mapLayer[LAYER_BACKGROUND]);
       }
     },
