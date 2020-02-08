@@ -3,11 +3,7 @@ phina.namespace(function() {
   phina.define('Player', {
     superClass: 'BaseUnit',
 
-    mapData: null,
-    collisionData: null,
-    floorData: null,
-
-    coverData: null,
+    speed: 0,
 
     init: function() {
       this.superInit({ width: 64, height: 64 });
@@ -15,13 +11,6 @@ phina.namespace(function() {
       this.sprite = Sprite("fighter", 64, 64)
         .setFrameIndex(0)
         .addChildTo(this.base);
-
-      this.time = 0;
-      this.speed = 0;
-    },
-
-    update: function() {
     },
   });
-
 });

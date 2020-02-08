@@ -17,6 +17,7 @@ phina.namespace(function() {
             return {
               image: {
                 "fighter": "assets/textures/fighter.png",
+                "particle": "assets/textures/particle.png",
               },
               // tmx: {
               //   "map1": "assets/map/map2.tmx",
@@ -25,7 +26,7 @@ phina.namespace(function() {
               //   "tile_a": "assets/map/tile_a.tsx",
               // }
             };
-            case "common":
+          case "common":
             return {
               image: {
               },

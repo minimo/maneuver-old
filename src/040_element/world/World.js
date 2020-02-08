@@ -22,7 +22,7 @@ phina.namespace(function() {
         this.mapLayer[i] = layer;
       });
 
-      this.player = Player()
+      this.player = Player({ world: this })
         .setPosition(SCREEN_WIDTH_HALF, SCREEN_HEIGHT_HALF)
         .addChildTo(this.mapLayer[LAYER_PLAYER]);
 
@@ -31,8 +31,9 @@ phina.namespace(function() {
     update: function() {
       this.controlPlayer();
 
-      this.mapBase.x = -this.player.x + SCREEN_WIDTH_HALF - this.player.vx * 2;
-      this.mapBase.y = -this.player.y + SCREEN_HEIGHT_HALF - this.player.vy * 2;
+      const player = this.player;
+      this.mapBase.x = SCREEN_WIDTH_HALF  - player.x - player.velocity.x * 3;
+      this.mapBase.y = SCREEN_HEIGHT_HALF - player.y - player.velocity.y * 3;
 
       this.time++;
     },
@@ -50,6 +51,7 @@ phina.namespace(function() {
         }).addChildTo(this.mapLayer[LAYER_BACKGROUND]);
       }
     },
+
     controlPlayer: function() {
       const player = this.player;
       var ct = phina_app.controller;
@@ -66,27 +68,30 @@ phina.namespace(function() {
           player.speed += 0.1;
           if (player.speed > 1) player.speed = 1;
           const rad = (player.direction * 22.5).toRadian();
-          player.vx += -Math.sin(rad) * player.speed;
-          player.vy += -Math.cos(rad) * player.speed;
-          const vec = Vector2(player.vx, player.vy);
-          if (vec.length > 2) {
-            vec.normalize();
-            player.vx = vec.x * 2;
-            player.vy = vec.y * 2;
+          player.velocity.x += -Math.sin(rad) * player.speed;
+          player.velocity.y += -Math.cos(rad) * player.speed;
+          if (player.velocity.length > 2) {
+            player.velocity.normalize();
+            player.velocity.mul(2);
           }
         } else {
           player.speed *= 0.98;
         }
       }
 
-      player.x += player.vx;
-      player.y += player.vy;
-
-      player.vx *= 0.99;
-      player.vy *= 0.99;
+      player.position.add(player.velocity);
+      player.velocity.mul(0.99);
 
       if (!ct.up) {
-        player.vy += 0.098;
+        player.velocity.y += 0.1;
+      } else {
+        const rad = (player.direction * 22.5).toRadian();
+        const vec = Vector2(Math.sin(rad), Math.cos(rad));
+        const p = Particle()
+          .setPosition(player.x, player.y)
+          .setVelocity(vec)
+          .addChildTo(this.mapLayer[LAYER_PLAYER]);
+        p.position.add(vec.mul(16));
       }
     }
   });
