@@ -79,20 +79,26 @@ phina.namespace(function() {
         }
       }
 
-      player.position.add(player.velocity);
-      player.velocity.mul(0.99);
-
       if (!ct.up) {
         player.velocity.y += 0.1;
       } else {
-        const rad = (player.direction * 22.5).toRadian();
-        const vec = Vector2(Math.sin(rad), Math.cos(rad));
-        const p = Particle()
-          .setPosition(player.x, player.y)
-          .setVelocity(vec)
-          .addChildTo(this.mapLayer[LAYER_PLAYER]);
-        p.position.add(vec.mul(16));
+        (3).times(i => {
+          const deg = player.direction * 22.5;
+          const rad = (deg + Math.randint(-1, 1)).toRadian();
+          const vec = Vector2(Math.sin(rad), Math.cos(rad));
+          const p = Particle({ radius: Math.randint(8, 16) })
+            .setPosition(player.x + vec.x * 16, player.y + vec.y * 16)
+            .setRotation(-deg)
+            .setVelocity(vec.mul(10))
+            .addChildTo(this.mapLayer[LAYER_PLAYER]);
+        });
       }
+      if (ct.a) {
+        
+      }
+
+      player.position.add(player.velocity);
+      player.velocity.mul(0.99);
     }
   });
 

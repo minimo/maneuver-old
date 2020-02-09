@@ -1,4 +1,4 @@
-phina.define("Particle", {
+phina.define("Bullet", {
   superClass: 'phina.display.CircleShape',
 
   _static: {
@@ -54,3 +54,4 @@ phina.define("Particle", {
   },
 
 });
+
