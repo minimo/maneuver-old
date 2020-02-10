@@ -97,7 +97,7 @@ phina.namespace(function() {
           (10).times(i => {
             const per = (1 / 10) * i;
             const pPos = Vector2(pos.x * per + this.beforeX * (1 - per), pos.y * per + this.beforeY * (1 - per))
-            const p = Particle({ radius: Math.randint(8, 16), scale: 0.4 })
+            const p = Particle({ radius: Math.randint(8, 16), scale: 0.6 * player.speed })
               .setPosition(pPos.x, pPos.y)
               .setVelocity(vec.mul(0))
               .addChildTo(this.mapLayer[LAYER_EFFECT_BACK]);
