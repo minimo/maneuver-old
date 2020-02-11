@@ -89,17 +89,17 @@ phina.namespace(function() {
 
       //アフターバーナー
       if (ct.up) {
-        const deg = player.direction * 22.5;
-        const rad = (deg + Math.randint(-1, 1)).toRadian();
-        const vec = Vector2(Math.sin(rad), Math.cos(rad));
-        const pos = Vector2(player.x + vec.x * 16, player.y + vec.y * 16);
+        const options = { color: { start: 210, end: 230 }, radius: 6, scale: 0.8 * player.speed };
+        const rad = (player.direction * 22.5).toRadian();
+        const pos = Vector2(player.x + Math.sin(rad) * 8, player.y + Math.cos(rad) * 8);
         if (this.beforeX != null) {
-          (10).times(i => {
-            const per = (1 / 10) * i;
+          const numSplit = 5;
+          const unitSplit = (1 / numSplit);
+          numSplit.times(i => {
+            const per = unitSplit * i;
             const pPos = Vector2(pos.x * per + this.beforeX * (1 - per), pos.y * per + this.beforeY * (1 - per))
-            const p = Particle({ radius: Math.randint(8, 16), scale: 0.6 * player.speed })
+            const p = Particle(options)
               .setPosition(pPos.x, pPos.y)
-              .setVelocity(vec.mul(0))
               .addChildTo(this.mapLayer[LAYER_EFFECT_BACK]);
           });
         }

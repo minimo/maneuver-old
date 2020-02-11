@@ -43,6 +43,7 @@ phina.namespace(function() {
       this.registDispose(label);
 
       this.one('nextscene', () => this.exit("main"));
+      this.flare('nextscene');
     },
 
     update: function() {
