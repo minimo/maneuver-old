@@ -3,6 +3,12 @@ phina.namespace(function() {
   phina.define('BaseUnit', {
     superClass: 'DisplayElement',
 
+    _static: {
+      defaultOptions: {
+        world: null,
+      },
+    },
+
     state: null,
     angle: 0,
     direction: 0,
