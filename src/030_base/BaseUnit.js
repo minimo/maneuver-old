@@ -14,6 +14,8 @@ phina.namespace(function() {
       this.world = options.world || null;
       this.base = DisplayElement().addChildTo(this);
       this.velocity = Vector2(0, 0);
+
+      this.before = null;
     },
   });
 

@@ -25,8 +25,6 @@ phina.namespace(function() {
       this.player = Player({ world: this })
         .setPosition(SCREEN_WIDTH_HALF, SCREEN_HEIGHT_HALF)
         .addChildTo(this.mapLayer[LAYER_PLAYER]);
-      this.beforeX = this.player.x;
-      this.beforeY = this.player.y;
 
       this.setupMap();
     },
@@ -89,27 +87,33 @@ phina.namespace(function() {
 
       //アフターバーナー
       if (ct.up) {
-        const options = { color: { start: 210, end: 230 }, radius: 6, scale: 0.8 * player.speed };
-        const rad = (player.direction * 22.5).toRadian();
-        const pos = Vector2(player.x + Math.sin(rad) * 8, player.y + Math.cos(rad) * 8);
-        if (this.beforeX != null) {
-          const numSplit = 5;
-          const unitSplit = (1 / numSplit);
-          numSplit.times(i => {
-            const per = unitSplit * i;
-            const pPos = Vector2(pos.x * per + this.beforeX * (1 - per), pos.y * per + this.beforeY * (1 - per))
-            const p = Particle(options)
-              .setPosition(pPos.x, pPos.y)
-              .addChildTo(this.mapLayer[LAYER_EFFECT_BACK]);
-          });
-        }
-        this.beforeX = pos.x;
-        this.beforeY = pos.y;
+        const rad = (this.player.direction * 22.5).toRadian();
+        this.enterAfterBanner(this.player, Vector2(Math.sin(rad) * 8, Math.cos(rad) * 8));
       } else {
-        this.beforeX = null;
+        this.player.before = null;
       }
+    },
 
-    }
+    enterAfterBanner: function(unit, offset) {
+      offset = offset || Vector2(0, 0);
+      const options = { scale: 0.3 * unit.speed };
+      const pos = unit.position.clone().add(offset);
+      if (unit.before) {
+        const dis = unit.position.distance(unit.before);
+        const numSplit = Math.max(Math.floor(dis / 3), 6);
+        const unitSplit = (1 / numSplit);
+        numSplit.times(i => {
+          const per = unitSplit * i;
+          const pPos = Vector2(pos.x * per + unit.before.x * (1 - per), pos.y * per + unit.before.y * (1 - per))
+          const p = ParticleSprite(options)
+            .setPosition(pPos.x, pPos.y)
+            .addChildTo(this.mapLayer[LAYER_EFFECT_BACK]);
+        });
+      } else {
+        unit.before = Vector2();
+      }
+      unit.before.set(pos.x, pos.y);
+  },
   });
 
 });

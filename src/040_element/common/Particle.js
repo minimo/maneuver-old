@@ -7,7 +7,7 @@ phina.define("Particle", {
       end: 30,   // color angle の終了値
     },
     defaulScale: 1,     // 初期スケール
-    scaleDecay: 0.02,  // スケールダウンのスピード
+    scaleDecay: 0.03,  // スケールダウンのスピード
   },
   init: function(options) {
     this.options = (options || {}).$safe({ stroke: false, radius: 24, scale: 1.0 });
