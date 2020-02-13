@@ -23,7 +23,7 @@ phina.namespace(function() {
       });
 
       this.player = Player({ world: this })
-        .setPosition(SCREEN_WIDTH_HALF, SCREEN_HEIGHT_HALF)
+        .setPosition(SCREEN_WIDTH_HALF, SCREEN_HEIGHT_HALF-100)
         .addChildTo(this.mapLayer[LAYER_PLAYER]);
 
       this.setupMap();
@@ -88,32 +88,13 @@ phina.namespace(function() {
       //アフターバーナー
       if (ct.up) {
         const rad = (this.player.direction * 22.5).toRadian();
-        this.enterAfterBanner(this.player, Vector2(Math.sin(rad) * 8, Math.cos(rad) * 8));
+        this.player.afterBanner
+          .setOffset(Math.sin(rad) * 8, Math.cos(rad) * 8)
+          .enable();
       } else {
-        this.player.before = null;
+        this.player.afterBanner.disable();
       }
     },
-
-    enterAfterBanner: function(unit, offset) {
-      offset = offset || Vector2(0, 0);
-      const options = { scale: 0.3 * unit.speed };
-      const pos = unit.position.clone().add(offset);
-      if (unit.before) {
-        const dis = unit.position.distance(unit.before);
-        const numSplit = Math.max(Math.floor(dis / 3), 6);
-        const unitSplit = (1 / numSplit);
-        numSplit.times(i => {
-          const per = unitSplit * i;
-          const pPos = Vector2(pos.x * per + unit.before.x * (1 - per), pos.y * per + unit.before.y * (1 - per))
-          const p = ParticleSprite(options)
-            .setPosition(pPos.x, pPos.y)
-            .addChildTo(this.mapLayer[LAYER_EFFECT_BACK]);
-        });
-      } else {
-        unit.before = Vector2();
-      }
-      unit.before.set(pos.x, pos.y);
-  },
   });
 
 });

@@ -6,23 +6,14 @@ phina.define("ParticleSprite", {
     scaleDecay: 0.01,  // スケールダウンのスピード
   },
   init: function(options) {
-    this.options = (options || {}).$safe({ stroke: false, radius: 24, scale: 1.0 });
     this.superInit("particle", 16, 16);
 
     this.blendMode = 'lighter';
 
     this.beginPosition = Vector2();
-    this.velocity = this.options.velocity || Vector2(0, 0);
-    this.one("enterframe", () => this.reset());
-  },
-
-  reset: function(x, y) {
-    x = x || this.x;
-    y = y || this.y;
-    this.beginPosition.set(x, y);
-    this.position.set(this.beginPosition.x, this.beginPosition.y);
-    this.scaleX = this.scaleY = this.options.scale || Math.randfloat(ParticleSprite.defaulScale * 0.8, ParticleSprite.defaulScale * 1.2);
-    this.scaleDecay = this.options.scaleDecay || ParticleSprite.scaleDecay;
+    this.velocity = options.velocity || Vector2(0, 0);
+    this.scaleX = this.scaleY = options.scale || ParticleSprite.defaultScale;
+    this.scaleDecay = options.scaleDecay || ParticleSprite.scaleDecay;
   },
 
   update: function() {

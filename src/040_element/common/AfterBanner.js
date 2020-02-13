@@ -3,13 +3,31 @@ phina.define("AfterBanner", {
 
   init: function(target) {
     this.superInit(target);
+
+    this.isDisable = false;
+    this.layer = null;
     this.offset = Vector2(0, 0);
     this.before = null;
   },
 
+  setLayer: function(layer) {
+    this.layer = layer;
+    return this;
+  },
+
+  enable: function() {
+    this.isDisable = false;
+    return this;
+  },
+
+  disable: function() {
+    this.isDisable = true;
+    return this;
+  },
+
   setOffset: function (x, y) {
     if (x instanceof Vector2) {
-      this.offset.set(x.x, y.x);
+      this.offset.set(x.x, x.y);
       return this;
     }
     this.offset.set(x, y);
@@ -17,23 +35,27 @@ phina.define("AfterBanner", {
   },
 
   update: function() {
+    if (this.isDisable) {
+      this.before = null;
+      return;
+    }
     const target = this.target;
-    const options = { scale: 0.3 * target.speed || 1};
+    const options = { scale: 0.3 };
     const pos = target.position.clone().add(this.offset);
     if (this.before) {
-      const dis = unit.position.distance(this.before);
+      const dis = target.position.distance(this.before);
       const numSplit = Math.max(Math.floor(dis / 3), 6);
       const unitSplit = (1 / numSplit);
       numSplit.times(i => {
         const per = unitSplit * i;
         const pPos = Vector2(pos.x * per + this.before.x * (1 - per), pos.y * per + this.before.y * (1 - per))
-        const p = ParticleSprite(options)
+        ParticleSprite(options)
           .setPosition(pPos.x, pPos.y)
-          .addChildTo(target.world.mapLayer[LAYER_EFFECT_BACK]);
+          .addChildTo(this.layer);
       });
+      this.before.set(pos.x, pos.y);
     } else {
-      this.before = Vector2();
+      this.before = Vector2(pos.x, pos.y);
     }
-    this.before.set(pos.x, pos.y);
   },
 });
