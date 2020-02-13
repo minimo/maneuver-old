@@ -87,12 +87,11 @@ phina.namespace(function() {
 
       //アフターバーナー
       if (ct.up) {
-        const rad = (this.player.direction * 22.5).toRadian();
-        this.player.afterBanner
-          .setOffset(Math.sin(rad) * 8, Math.cos(rad) * 8)
-          .enable();
+        this.player.afterBanner[0].enable();
+        this.player.afterBanner[1].enable();
       } else {
-        this.player.afterBanner.disable();
+        this.player.afterBanner[0].disable();
+        this.player.afterBanner[1].disable();
       }
     },
   });
