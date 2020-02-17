@@ -12,6 +12,7 @@ phina.namespace(function() {
     state: null,
     angle: 0,
     direction: 0,
+    speed: 0,
 
     sprite: null,
 

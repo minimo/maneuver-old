@@ -29,8 +29,6 @@ phina.namespace(function() {
   phina.define('Player', {
     superClass: 'BaseUnit',
 
-    speed: 0,
-
     init: function(options) {
       this.superInit(options.$safe({ width: 32, height: 32 }));
 
