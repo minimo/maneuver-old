@@ -31,10 +31,6 @@ phina.namespace(function() {
     update: function() {
       this.controlPlayer();
 
-      const player = this.player;
-      this.mapBase.x = SCREEN_WIDTH_HALF  - player.x - player.velocity.x * 3;
-      this.mapBase.y = SCREEN_HEIGHT_HALF - player.y - player.velocity.y * 3;
-
       this.time++;
     },
     setupMap: function() {
@@ -87,12 +83,16 @@ phina.namespace(function() {
 
       //アフターバーナー
       if (ct.up) {
-        this.player.afterBanner[0].enable();
-        this.player.afterBanner[1].enable();
+        const v = player.velocity.clone().mul(1)
+        player.afterBanner[0].enable().setVelocity(v);
+        player.afterBanner[1].enable().setVelocity(v);
       } else {
-        this.player.afterBanner[0].disable();
-        this.player.afterBanner[1].disable();
+        player.afterBanner[0].disable();
+        player.afterBanner[1].disable();
       }
+
+      this.mapBase.x = SCREEN_WIDTH_HALF  - player.x - player.velocity.x * 3;
+      this.mapBase.y = SCREEN_HEIGHT_HALF - player.y - player.velocity.y * 3;
     },
   });
 

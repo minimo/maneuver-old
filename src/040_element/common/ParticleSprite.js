@@ -28,7 +28,7 @@ phina.define("ParticleSprite", {
 
   setVelocity: function(x, y) {
     if (x instanceof Vector2) {
-      this.velocity = x;
+      this.velocity = x.clone();
       return this;
     }
     this.velocity.x = x;

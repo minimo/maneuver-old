@@ -7,6 +7,7 @@ phina.define("AfterBanner", {
     this.isDisable = false;
     this.layer = null;
     this.offset = Vector2(0, 0);
+    this.velocity = Vector2(0, 0);
     this.before = null;
   },
 
@@ -31,6 +32,16 @@ phina.define("AfterBanner", {
       return this;
     }
     this.offset.set(x, y);
+    return this;
+  },
+
+  setVelocity: function(x, y) {
+    if (x instanceof Vector2) {
+      this.velocity = x.clone().mul(-1);
+      return this;
+    }
+    this.velocity.x = x;
+    this.velocity.x = y;
     return this;
   },
 
