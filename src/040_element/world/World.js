@@ -31,6 +31,13 @@ phina.namespace(function() {
     update: function() {
       this.controlPlayer();
 
+      var ct = phina_app.controller;
+      if (ct.a) {
+        console.log("enter enemy");
+        const e = EnemyyFighter({ player: this.player })
+          .addChildTo(this.mapLayer[LAYER_ENEMY]);
+      }
+
       this.time++;
     },
     setupMap: function() {
@@ -83,7 +90,7 @@ phina.namespace(function() {
 
       //アフターバーナー
       if (ct.up) {
-        const v = player.velocity.clone().mul(1)
+        const v = player.velocity.clone().mul(-1)
         player.afterBanner[0].enable().setVelocity(v);
         player.afterBanner[1].enable().setVelocity(v);
       } else {
