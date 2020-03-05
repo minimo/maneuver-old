@@ -32,7 +32,7 @@ phina.namespace(function() {
       this.controlPlayer();
 
       var ct = phina_app.controller;
-      if (ct.a) {
+      if (this.time % 30 == 0 && ct.a) {
         console.log("enter enemy");
         const e = EnemyyFighter({ player: this.player })
           .addChildTo(this.mapLayer[LAYER_ENEMY]);

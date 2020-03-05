@@ -18,10 +18,14 @@ phina.namespace(function() {
 
       this.time = 0;
     },
+
     update: function() {
       //自分から見たプレイヤーの方角
       const r = Math.atan2(this.player.y - this.y, this.player.x - this.x);
-      this.rotation = r.toDegree();
+      let d = (r.toDegree() + 90);
+      if (d < 0) d += 360;
+      this.angle = Math.floor(d / 22.5);
+      this.sprite.setFrameIndex(this.angle);
 
       this.velocity.add(Vector2(Math.cos(r) * this.speed, Math.sin(r) * this.speed));
       this.velocity.normalize();
