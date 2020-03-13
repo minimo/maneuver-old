@@ -60,18 +60,18 @@ phina.namespace(function() {
       var ct = phina_app.controller;
       if (this.time % 3 == 0) {
         if (ct.left) {
-          player.direction++;
-          if (player.direction > 15) player.direction = 0;
-        } else if (ct.right) {
           player.direction--;
           if (player.direction < 0) player.direction = 15;
+        } else if (ct.right) {
+          player.direction++;
+          if (player.direction > 15) player.direction = 0;
         }
         player.sprite.setFrameIndex(player.direction);
         if (ct.up) {
           player.speed += 0.1;
           if (player.speed > 1) player.speed = 1;
           const rad = (player.direction * 22.5).toRadian();
-          player.velocity.x += -Math.sin(rad) * player.speed;
+          player.velocity.x += Math.sin(rad) * player.speed;
           player.velocity.y += -Math.cos(rad) * player.speed;
           if (player.velocity.length > 2) {
             player.velocity.normalize();
