@@ -16,6 +16,8 @@ phina.namespace(function() {
 
     sprite: null,
 
+    hp: 100,
+
     init: function(options) {
       this.superInit(options);
       this.world = options.world || null;

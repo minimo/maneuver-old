@@ -14,9 +14,13 @@ phina.namespace(function() {
       this.player = options.player;
       this.velocity = Vector2(0, 0);
       this.angle = 0;
-      this.speed = 5;
+      this.speed = 10;
 
       this.time = 0;
+
+      this.afterBanner = AfterBanner()
+        .setLayer(this.world.mapLayer[LAYER_EFFECT_BACK])
+        .attachTo(this);
     },
 
     update: function() {
@@ -24,6 +28,7 @@ phina.namespace(function() {
       const r = Math.atan2(this.player.y - this.y, this.player.x - this.x);
       let d = (r.toDegree() + 90);
       if (d < 0) d += 360;
+      if (d > 360) d -= 360;
       this.angle = Math.floor(d / 22.5);
       this.sprite.setFrameIndex(this.angle);
 
