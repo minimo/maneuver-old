@@ -3,7 +3,7 @@ phina.define("Laser", {
 
   _static: {
     defaultOptions: {
-      length: 1000,
+      length: 500,
     },
   },
 

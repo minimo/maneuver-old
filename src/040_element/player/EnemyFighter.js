@@ -24,17 +24,20 @@ phina.namespace(function() {
     },
 
     update: function() {
-      //自分から見たプレイヤーの方角
-      const r = Math.atan2(this.player.y - this.y, this.player.x - this.x);
-      let d = (r.toDegree() + 90);
-      if (d < 0) d += 360;
-      if (d > 360) d -= 360;
-      this.angle = Math.floor(d / 22.5);
-      this.sprite.setFrameIndex(this.angle);
+      const toPlayer = Vector2(this.player.x - this.x ,this.player.y - this.y)
+      if (toPlayer.length() > 30) {
+        //自分から見たプレイヤーの方角
+        const r = Math.atan2(toPlayer.y, toPlayer.x);
+        let d = (r.toDegree() + 90);
+        if (d < 0) d += 360;
+        if (d > 360) d -= 360;
+        this.angle = Math.floor(d / 22.5);
+        this.sprite.setFrameIndex(this.angle);
+        this.velocity.add(Vector2(Math.cos(r) * this.speed, Math.sin(r) * this.speed));
+        this.velocity.normalize();
+        this.velocity.mul(this.speed);
+      }
 
-      this.velocity.add(Vector2(Math.cos(r) * this.speed, Math.sin(r) * this.speed));
-      this.velocity.normalize();
-      this.velocity.mul(this.speed);
       this.position.add(this.velocity);
 
       this.time++;

@@ -31,8 +31,8 @@ phina.namespace(function() {
     update: function() {
       this.controlPlayer();
 
-      var ct = phina_app.controller;
-      if (this.time % 30 == 0 && ct.a) {
+      var kb = phina_app.keyboard;
+      if (this.time % 30 == 0 && kb.getKey("E")) {
         console.log("enter enemy");
         const e = EnemyyFighter({ player: this.player, world: this })
           .addChildTo(this.mapLayer[LAYER_ENEMY]);
@@ -96,6 +96,10 @@ phina.namespace(function() {
       } else {
         player.afterBanner[0].disable();
         player.afterBanner[1].disable();
+      }
+
+      if (ct.a) {
+        
       }
 
       this.mapBase.x = SCREEN_WIDTH_HALF  - player.x - player.velocity.x * 3;
